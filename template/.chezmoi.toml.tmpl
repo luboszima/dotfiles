@@ -1,0 +1,51 @@
+{{- writeToStdout "Hello, please set following inputs:\n - email, firstname, surname\n\n" -}}
+{{ $email := promptString "email" -}}
+{{ $firstName := promptString "firstName" -}}
+{{ $familyName := promptString "familyName" -}}
+{{ $githubUsername := promptString "githubUsername" -}}
+
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $computerName := output "bash" "-c" "system_profiler SPHardwareDataType | grep -E 'Model Name' | awk -F':' '{print $2}' | tr '[:upper:]' '[:lower:]' | tr -d ' '" | trim -}}
+{{-   $hostname = $computerName -}}
+{{- end -}}
+
+[data]
+    email = {{ $email | quote }}
+    firstName = {{ $firstName | quote }}
+    familyName = {{ $familyName | quote }}
+    githubUsername = {{ $githubUsername | quote }}
+    hostname = {{ $hostname | quote }}
+    zshPlugins = [
+        "per-directory-history",
+        "vi-mode",
+        "zsh-syntax-highlighting",
+        "git",
+        "colored-man-pages",
+        "colorize",
+        "pip",
+        "aliases",
+        "asdf",
+        "docker",
+        "docker-compose",
+        "fd",
+        "fzf",
+        "gh",
+        "iterm2",
+        "kubectl",
+        "macos",
+        "python",
+        "tmux",
+{{- if eq .chezmoi.os "darwin" -}}
+        "brew",
+        "osx",
+{{-   end -}}
+        "python"
+    ]
+
+progress = true
+
+[github]
+    refreshPeriod = "12h"
