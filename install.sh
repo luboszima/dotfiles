@@ -33,7 +33,7 @@ else
 fi
 
 # install brew
-if [ ! "$(command -v brew)" ] || ! [ -f "/opt/homebrew/bin/brew" ]; then
+if ! [ -f "/opt/homebrew/bin/brew" ]; then
   echo "Installing brew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
