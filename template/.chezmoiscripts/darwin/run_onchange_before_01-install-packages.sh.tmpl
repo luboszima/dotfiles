@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $brews := list
+    "colima"
+    "docker"
+    "docker-buildx"
+    "docker-compose"
+    "kubernetes-cli"
+    "kubectx"
+    "terminal-notifier"
+    "tmux"
+    "tree"
+    "watch"
+    "zsh"
+     "curl"
+     "dockutil"
+     "fd"
+     "ffmpeg"
+     "vim"
+     "gh"
+     "git"
+     "git-lfs"
+     "gnu-units"
+     "gnupg"
+     "go"
+     "jq"
+     "yq"
+     "nvim"
+     "ncdu"
+     "shellcheck"
+     "tmux"
+     "asdf"
+     "wget"
+     "xz"
+     "yt-dlp" -}}
+{{ $casks := list
+     "bitwarden"
+     "google-chrome"
+     "openlens"
+     "iterm2"
+     "tailscale"
+     "slack"
+     "synology-drive"
+     "whatsapp" -}}
+
+brew bundle -f --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
