@@ -151,6 +151,8 @@ alias tfp="terraform plan"
 alias htop="btop"
 alias top="btop"
 alias vfind="vim $(fzf --height 40%)"
+# Prints each $PATH entry on a separate line.
+alias path='echo -e ${PATH//:/\\n}'
 
 # ------------------------------------
 # Media
@@ -163,12 +165,74 @@ alias ytdownloadmp3="youtube-dl --audio-quality 0 --extract-audio --audio-format
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias tailscalestatus="tailscale status | grep -E -v '^(#.*)?$'"
 
-{{/* vim: set filetype=bash: */}}
+# ------------------------------------
+# File management
+# ------------------------------------
 
+# Copies a file securely.
+alias cpv='rsync -ah --info=progress2'
 
+# Finds directories.
+alias fd='find . -type d -name'
 
+# Finds files.
+alias ff='find . -type f -name'
+
+# ------------------------------------
+# Time
+# ------------------------------------
 # Gets Unix time stamp`
 alias timestamp='date -u +%s'
 
 # Gets week number in ISO-8601 format `YYYY-Www`.
 alias week='date +"%Y-W%V"'
+
+# Gets local/UTC date and time in ISO-8601 format `YYYY-MM-DDThh:mm:ss`.
+alias now='date +"%Y-%m-%dT%H:%M:%S"'
+alias unow='date -u +"%Y-%m-%dT%H:%M:%S"'
+
+# Gets date in `YYYY-MM-DD` format`
+alias nowdate='date +"%Y-%m-%d"'
+alias unowdate='date -u +"%Y-%m-%d"'
+
+# Gets time in `hh:mm:ss` format`
+alias nowtime='date +"%T"'
+alias unowtime='date -u +"%T"'
+
+# Gets weekday number.
+alias weekday='date +"%u"'
+
+# ------------------------------------
+# Networking
+# ------------------------------------
+{{ if eq .chezmoi.os "darwin" }}
+    alias fastping='ping -c 30'
+ {{ else if eq .chezmoi.os "linux" }}
+    alias fastping='ping -c 30 -i.2'
+{{ else }}
+    alias fastping='ping -n 30'
+{{ end }}
+
+
+# Flushes the DNS cache.
+{{ if eq .chezmoi.os "darwin" }}
+    alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder;echo DNS cache flushed'
+ {{ else if eq .chezmoi.os "linux" }}
+    alias flushdns='sudo /etc/init.d/dns-clean restart && echo DNS cache flushed'
+{{ else }}
+    alias flushdns='ipconfig //flushdns'
+{{ end }}
+
+# Gets all IP addresses.
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Gets local IP address.
+{{ if eq .chezmoi.os "darwin" }}
+    alias localip='ipconfig getifaddr en0'
+ {{ else if eq .chezmoi.os "linux" }}
+    alias localip="ip route get 1 | awk '{print \$NF;exit}'"
+{{ else }}
+    # shellcheck disable=SC2142
+    alias localip="netstat -rn | grep -w '0.0.0.0' | awk '{ print \$4 }'"
+{{ end }}
+
