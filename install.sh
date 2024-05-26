@@ -15,6 +15,10 @@ if ! [ -z "$CHZ_FAMILYNAME" ]; then
   prompt="$prompt --promptString familyName=$CHZ_FAMILYNAME"
 fi
 
+if ! [ -z "$CHZ_GITHUBUSERNAME" ]; then
+  prompt="$prompt --promptString githubUsername=$CHZ_GITHUBUSERNAME"
+fi
+
 # install chezmoit
 if [ ! "$(command -v chezmoi)" ]; then
   echo "Installing chezmoi"
