@@ -46,7 +46,7 @@ set -eufo pipefail
      "synology-drive"
      "whatsapp" -}}
 
-brew bundle -f --no-lock --file=/dev/stdin <<EOF
+/opt/homebrew/bin/brew bundle -f --no-lock --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
