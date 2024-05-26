@@ -24,7 +24,7 @@ declare -a remove_labels=(
 )
 
 for label in "${remove_labels[@]}"; do
-	dockutil --no-restart --remove "${label}" || true
+	/opt/homebrew/bin/dockutil --no-restart --remove "${label}" || true
 done
 
 declare -a add_apps=(
@@ -37,8 +37,8 @@ declare -a add_apps=(
 )
 
 for app in "${add_apps[@]}"; do
-	dockutil --no-restart --allhomes --remove "${app}" || true
+	/opt/homebrew/bin/dockutil --no-restart --allhomes --remove "${app}" || true
 done
 for app in "${add_apps[@]}"; do
-	dockutil --no-restart --allhomes --position beginning --add "${app}" || true
+	/opt/homebrew/bin/dockutil --no-restart --allhomes --position beginning --add "${app}" || true
 done
