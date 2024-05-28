@@ -8,3 +8,5 @@ else
   echo "Skipping powerlevel10k, already installed."
 fi
 
+echo "Set ZSH as a default shell"
+sudo chsh -s $(which zsh)
