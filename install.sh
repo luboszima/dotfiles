@@ -30,19 +30,19 @@ fi
 
 prompt=""
 if ! [ -z "$CHZ_EMAIL" ]; then
-  prompt="$prompt --promptString email=$CHZ_EMAIL"
+  prompt="$prompt --prompt email=$CHZ_EMAIL"
 fi
 
 if ! [ -z "$CHZ_FIRSTNAME" ]; then
-  prompt="$prompt --promptString firstName=$CHZ_FIRSTNAME"
+  prompt="$prompt --prompt firstName=$CHZ_FIRSTNAME"
 fi
 
 if ! [ -z "$CHZ_FAMILYNAME" ]; then
-  prompt="$prompt --promptString familyName=$CHZ_FAMILYNAME"
+  prompt="$prompt --prompt familyName=$CHZ_FAMILYNAME"
 fi
 
 if ! [ -z "$CHZ_GITHUBUSERNAME" ]; then
-  prompt="$prompt --promptString githubUsername=$CHZ_GITHUBUSERNAME"
+  prompt="$prompt --prompt githubUsername=$CHZ_GITHUBUSERNAME"
 fi
 
 # install chezmoit
