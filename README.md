@@ -6,7 +6,6 @@ Original repo by author of chezmoi: https://github.com/twpayne/dotfiles
 
 ## Install
 
-
 ```bash
 email="you-email@example.com"
 firstname="my-name"
@@ -21,4 +20,14 @@ This one line installer failing on fresh installed computer. The best way now is
 bin_dir="$HOME/.local/bin"
 sh -c "$(curl -fsSL https://git.io/chezmoi)" -- -b "$bin_dir"
 $bin_dir init --apply luboszima
+```
+
+## Taskfile
+
+### Init
+
+Setup ~/.ssh/config with tailscale devices ip address to connect via ssh. It will ask you about your username and port and then generate new config file for you
+
+```bash
+task init:ssh-config
 ```
