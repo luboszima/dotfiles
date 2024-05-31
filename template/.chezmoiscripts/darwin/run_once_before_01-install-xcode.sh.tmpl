@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# install brew
+if ! xcode-select -p > /dev/null; then
+  echo "Installing xcode dev tools"
+  xcode-select --install
+fi
