@@ -31,6 +31,7 @@ declare -a add_apps=(
   "/System/Applications/System Settings.app"
   "/System/Applications/Utilities/Activity Monitor.app"
   "/Applications/iTerm.app"
+  "/Applications/PyCharm.app"
   "/System/Applications/Notes.app"
   "/System/Applications/Reminders.app"
   "/Applications/Google Chrome.app"
