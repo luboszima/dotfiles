@@ -1,0 +1,20 @@
+{{ if eq .ollama "yes" -}}
+#!/usr/bin/env bash
+
+# start ollama server
+echo "ollama server"
+/opt/homebrew/bin/ollama serve &
+
+# ollama pull models
+echo "ollama pull models"
+ollamaModels=$(echo "{{.ollamaModels}}" | tr ',' ' ')
+
+for model in $ollamaModels; do
+    echo "ollama pull $model"
+
+    /opt/homebrew/bin/ollama pull "$model"
+done
+{{ end -}}
+
+ollama_process_id=$(ps aux | grep ollama | grep serve | awk '{print $2}')
+kill $ollama_process_id

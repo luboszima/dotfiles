@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# install brew
+if ! xcode-select -p > /dev/null; then
+  echo "Installing xcode dev tools"
+  echo "Check Settings->General->Software Update"
+  echo "Click on install Xcode"
+  xcode-select --install
+fi

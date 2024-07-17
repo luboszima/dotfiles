@@ -1,0 +1,88 @@
+{{- writeToStdout "Hello, please set following inputs:\n - email, firstname, surname\n\n" -}}
+{{ $email := promptString "email" -}}
+{{ $firstName := promptString "firstName" }}
+{{ $familyName := promptString "familyName" }}
+{{ $isDeveloper := promptBoolOnce . "isDeveloper" "Are you developer? y/n " }}
+{{ $role := "user" }}
+{{ $setupOllama := "" }}
+{{ $ollama := "no" }}
+{{ $ollamaModels := "" }}
+{{- if $isDeveloper -}}
+{{-   $role = "developer" -}}
+{{- end -}}
+{{- $githubUsername := "" -}}
+{{- if $isDeveloper -}}
+{{-   $setupOllama := promptBoolOnce . "setupOllama" "Do you want setup ollama? y/n " -}}
+{{-   $githubUsername = promptString "githubUsername" -}}
+{{-   if $setupOllama -}}
+{{-     $ollamaModels = "llama3:8b,deepseek-coder,codellama" -}}
+{{-     $ollama = "yes" -}}
+{{-   end -}}
+{{- end -}}
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $hostname = "cmgx-osx-{{ slice .firstName  0 1}}{{ slice .familyName  0 4}}" -}}
+{{- end -}}
+
+[data]
+    role = {{ $role | quote }}
+    email = {{ $email | quote }}
+    firstName = {{ $firstName | quote }}
+    familyName = {{ $familyName | quote }}
+    githubUsername = {{ $githubUsername | quote }}
+    hostname = {{ $hostname | quote }}
+    ollama = {{ $ollama | quote }}
+    ollamaModels = {{ $ollamaModels | quote }}
+    # on this place can be changed the list of extensions
+    pycharmExtensions = [
+{{- if $isDeveloper -}}
+        "Docker",
+        "ru.adelf.idea.dotenv",
+        "net.seesharpsoft.intellij.plugins.csv",
+        "izhangzhihao.rainbow.brackets",
+        "mobi.hsz.idea.gitignore",
+        "dev.turingcomplete.intellijdevelopertoolsplugins",
+        "club.nutsoft.Github3Theme",
+        "org.jetbrains.plugins.cehzm-template",
+        "com.intellij.kubernetes",
+        "some.awesome",
+        "de.ax.powermode",
+        "org.intellij.plugins.hcl",
+        "nl.crosscode.x509Certbuddy",
+        "dev.turingcomplete.intellijdevelopertoolsplugins",
+        "com.chuntung.plugin.gistsnippet",
+        "com.codegpt.CodeGPT"
+{{- end -}}
+    ]
+    zshPlugins = [
+{{- if $isDeveloper -}}
+        "zsh-syntax-highlighting",
+        "zsh-autosuggestions",
+        "per-directory-history",
+        "vi-mode",
+        "git",
+        "colored-man-pages",
+        "colorize",
+        "pip",
+        "aliases",
+        "asdf",
+        "docker",
+        "docker-compose",
+        "fd",
+        "fzf",
+        "gh",
+        "iterm2",
+        "kubectl",
+{{- if eq .chezmoi.os "darwin" -}}
+        "brew",
+{{-   end -}}
+        "python"
+{{- end -}}
+    ]
+
+progress = true
+
+[github]
+    refreshPeriod = "12h"

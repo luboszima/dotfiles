@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# install brew
+if ! [ -f "/opt/homebrew/bin/brew" ]; then
+  echo "Installing brew"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi

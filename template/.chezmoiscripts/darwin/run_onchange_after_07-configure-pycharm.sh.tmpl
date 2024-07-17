@@ -1,0 +1,8 @@
+{{ if eq .role "developer" -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+{{- range .pycharmExtensions }}
+open -na "PyCharm.app" --args installPlugins {{ . }}
+{{ end -}}
+{{ end -}}

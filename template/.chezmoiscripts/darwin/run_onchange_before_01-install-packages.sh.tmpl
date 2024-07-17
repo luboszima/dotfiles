@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ $brews := list
+     "zsh"
+     "curl"
+     "btop"
+     "tree"
+     "gnupg"
+     "ncdu"
+     "jq"
+     "yq"
+     "wget"
+     "fzf"
+     "dockutil"
+     "watch"
+     "fd"
+     "vim"
+     "pv"
+     "rclone"
+     "bitwarden-cli"
+     "gnu-units"
+     "fzf" -}}
+{{ $casks := list
+     "iterm2"
+     "tailscale"
+     "bitwarden"
+     "google-chrome" -}}
+
+# append two lists
+{{ if eq .role "developer" -}}
+{{ $devbrews := list
+     "colima"
+     "docker"
+     "docker-buildx"
+     "docker-compose"
+     "kubernetes-cli"
+     "watch"
+     "fd"
+     "age"
+     "ffmpeg"
+     "vim"
+     "gh"
+     "pv"
+     "git"
+     "git-lfs"
+     "gnu-units"
+     "go"
+     "nvim"
+     "go-task"
+     "shellcheck"
+     "tmux"
+     "asdf"
+     "xz" -}}
+# merge brew + devbrews
+{{ range ($devbrews | sortAlpha | uniq) -}}{{ $brews = append $brews . }}{{ end -}}
+{{ $devcasks := list
+     "openlens"
+     "pycharm-ce" -}}
+{{ range ($devcasks | sortAlpha | uniq) -}}{{ $casks = append $casks . }}{{ end -}}
+{{ end -}}
+
+# append ai tools to brews and casks
+{{ if eq .ollama "yes" -}}
+{{ $aibrews := list
+    "ollama" -}}
+# merge brew + devbrews
+{{ range ($aibrews | sortAlpha | uniq) -}}{{ $brews = append $brews . }}{{ end -}}
+{{ $aicasks := list
+     "ollamac" -}}
+{{ range ($aicasks | sortAlpha | uniq) -}}{{ $casks = append $casks . }}{{ end -}}
+{{ end -}}
+
+/opt/homebrew/bin/brew bundle -f --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF

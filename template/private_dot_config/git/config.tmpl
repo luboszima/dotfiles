@@ -1,0 +1,17 @@
+{{ if eq .role "developer" -}}
+[user]
+	name = {{ .firstName }} {{ .familyName }}
+	email = {{ .email }}
+[color]
+	ui = auto
+[status]
+	submoduleSummary = true
+{{- $ghPath := lookPath "gh" }}
+{{- if $ghPath }}
+[credential "https://github.com"]
+	helper = !{{ $ghPath }} auth git-credential
+[credential "https://gist.github.com"]
+	helper = !{{ $ghPath }} auth git-credential
+{{- end }}
+{{/* vim: set filetype=gitconfig: */}}
+{{ end -}}

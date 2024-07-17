@@ -1,0 +1,151 @@
+# ------------------------------------
+# Docker alias and function
+# ------------------------------------
+
+# Get latest container ID
+alias dl="docker ps -l -q"
+
+# Get container process
+alias dps="docker ps"
+
+# Get process included stop container
+alias dpa="docker ps -a"
+
+# Get images
+alias di="docker images"
+
+# Run deamonized container, e.g., $dkd base /bin/echo hello
+alias dkd="docker run -d -P"
+
+# Run interactive container, e.g., $dki base /bin/bash
+alias dki="docker run -i -t -P"
+
+# Execute interactive container, e.g., $dex base /bin/bash
+alias dex="docker exec -i -t"
+
+# Stop all containers
+dstop() { docker stop $(docker ps -a -q); }
+
+# Dockerfile build, e.g., $dbu tcnksm/test
+dbu() { docker build -t=$1 .; }
+
+# Show all alias related docker
+{{`dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }`}}
+
+# Bash into running container
+{{`dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }`}}
+
+# show docker log
+alias dlog="docker logs"
+
+# docker network prune
+alias dnp="docker network prune "
+
+# ------------------------------------
+# docker-compose
+# ------------------------------------
+alias dc="docker-compose"
+
+# docker-compose up -d
+alias dcu="docker-compose up -d"
+
+# docker-compose down
+alias dcd="docker-compose down"
+
+# docker-compose stop
+alias dcs="docker-compose stop"
+
+# docker-compose build
+alias dcb="docker-compose build --pull"
+
+# docker-compose pull
+alias dcp="docker-compose pull"
+
+# docker-compose push
+alias dcs="docker-compose push"
+
+# docker-compose down, build, up and show processes
+alias dca="dcd && dcb && dcu"
+
+# ------------------------------------
+# Kubetnetes
+# ------------------------------------
+
+# get all namespaces
+alias kgns="kubectl get namespaces"
+
+# set current namespace
+alias ksns="kubectl config set-context --current --namespace "
+
+# get all pods
+alias kgp="kubectl get pods"
+
+# get all deployments
+alias kgd="kubectl get deployments"
+
+# get all
+alias kga="kubectl get all"
+
+# port forward
+alias kpf="kubectl port-forward"
+
+# get services
+alias kgs="kubectl get services"
+
+# exec into pod and contianer
+alias kep="kubectl exec -it"
+
+# utilization: get top pods
+alias ktp="kubectl top pod --all-namespaces "
+
+# utilization: get top nodes
+alias ktn="kubectl top nodes"
+
+# get canaries for all namespaces
+alias kgc="k get canary -o wide -A"
+
+alias disconnect="kubectl config unset current-context"
+
+# delete all failed pods
+alias kdp="kubectl delete pods --field-selector status.phase=Failed --all-namespaces"
+
+# set default namespaces usage: ksn stage -> current namespace is stage
+alias ksn="kubectl config set-context --current --namespace"
+
+# kubectl alias
+alias k="kubectl"
+
+# ------------------------------------
+# GIT
+# ------------------------------------
+{{`alias gitrmlocal='git fetch -p && for branch in $(git branch -vv | grep '"': gone]' | awk '"'{print $1}'"'"'); do git branch -D $branch; done'`}}
+alias g=git
+alias gnp="git --no-pager"
+
+# ------------------------------------
+# Terraform & Terragrunt
+# ------------------------------------
+alias tf="terraform"
+alias tg="terragrunt"
+alias tgrunallinit="yes | terragrunt run-all init -reconfigure"
+alias ttgrunallplan="yes | terragrunt run-all plan"
+alias tgrunallapply="yes | terragrunt run-all apply"
+alias tgrunalldestroy="yes | terragrunt run-all destroy"
+alias tgrunallrestart="tgrunalldestroy; tgrunallapply"
+
+alias tfd="terraform destroy -auto-approve"
+alias tfa="terraform apply -auto-approve"
+alias tfp="terraform plan"
+
+# ------------------------------------
+# File management
+# ------------------------------------
+
+# Copies a file securely.
+alias cpv='rsync -ah --info=progress2'
+
+# Finds directories.
+alias fd='find . -type d -name'
+
+# Finds files.
+alias ff='find . -type f -name'

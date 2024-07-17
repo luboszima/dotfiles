@@ -1,0 +1,4 @@
+# https://www.jetbrains.com/help/pycharm/working-with-the-ide-features-from-command-line.html#standalone
+alias pycharm='open -na "PyCharm.app" --args'
+
+alias ghauth="gh auth login --web --git-protocol ssh --skip-ssh-key"
