@@ -37,3 +37,9 @@ tasks:
     preconditions:
       - command -v rclone
     cmd: rclone config create gphotos googlephotos
+
+  github-auth:
+    desc: gh cli authentication
+    preconditions:
+      - command -v gh
+    cmd: gh auth login --git-protocol ssh --web --skip-ssh-key
