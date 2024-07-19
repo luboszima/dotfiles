@@ -1,7 +1,16 @@
 version: '3'
 
 tasks:
+  default:
+    deps:
+      - task: ssh-config
+      - task: rclone-config
+    cmds:
+      - echo "Configuration done."
+
+  # generate ssh config Hosts in ~/.ssh/config for devices from Tailscale
   ssh-config:
+    desc: Generate Hosts in ~/.ssh/config for devices connected to Tailscale
     preconditions:
       - command -v tailscale
     cmds:
@@ -22,3 +31,9 @@ tasks:
     preconditions:
       - test -f ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "nas"
     cmd: bash ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "nas"
+
+  rclone-config:
+    desc: create rclone config for google photos
+    preconditions:
+      - command -v rclone
+    cmd: rclone config create gphotos googlephotos
