@@ -12,61 +12,13 @@ tasks:
   ssh-config-macbooks:
     internal: true
     silent: true
-    cmds:
-      - |
-        TAILSCALE_STATUS=$(tailscale status)
-        # echo c
-        for device in air pro; do
-          line=$(echo "$TAILSCALE_STATUS" | grep macOS | grep "$device")
-          device_ip=$(echo "$line" | awk '{print $1}')
-          device_name=$(echo "$line" | awk '{print $2}')
-        
-          # is host in $HOME/.ssh/config
-          if ! cat $HOME/.ssh/config | grep "$device" >/dev/null; then
-            echo "No host \"$device_ip\" found in \"$HOME/.ssh/config\""
-        
-          read -p "Enter username for device \"$device_name\": " username
-          read -p "Enter ssh port for device \"$device_name\": " port
-          if [ -z $port ]; then
-            port=22
-          fi
-        
-          echo "
-        Host "t$device"
-          HostName $device_ip
-          User $username
-          Port $port
-          " >> "$HOME/.ssh/config" 
-          fi
-        done
+    preconditions:
+      - test -f ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh
+    cmd: bash ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "air pro"
 
   ssh-config-nas:
     internal: true
     silent: true
-    cmds:
-      - |
-        TAILSCALE_STATUS=$(tailscale status)
-        # echo c
-        for device in nas; do
-          line=$(echo "$TAILSCALE_STATUS" | grep linux | grep "$device")
-          device_ip=$(echo "$line" | awk '{print $1}')
-          device_name=$(echo "$line" | awk '{print $2}')
-        
-          # is host in $HOME/.ssh/config
-          if ! cat $HOME/.ssh/config | grep "$device" >/dev/null; then
-            echo "No host \"$device_ip\" found in \"$HOME/.ssh/config\""
-        
-          read -p "Enter username for device \"$device_name\": " username
-          read -p "Enter ssh port for device \"$device_name\": " port
-          if [ -z $port ]; then
-            port=22
-          fi
-        
-          echo "
-        Host "t$device"
-          HostName $device_ip
-          User $username
-          Port $port
-          " >> "$HOME/.ssh/config" 
-          fi
-        done
+    preconditions:
+      - test -f ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "nas"
+    cmd: bash ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "nas"
