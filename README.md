@@ -42,13 +42,4 @@ References:
 Scripts from directory `template/.chezmoiscripts/darwin`
 - [run_once_before_00-install-brew.sh.tmpl](template%2F.chezmoiscripts%2Fdarwin%2Frun_once_before_00-install-brew.sh.tmpl) - install brew
 - [run_once_before_01-install-xcode.sh.tmpl](template%2F.chezmoiscripts%2Fdarwin%2Frun_once_before_01-install-xcode.sh.tmpl) - install xcode
-  - but you still need to visit Settings -> General -> Software Update and click to install
-- [run_onchange_before_00-generate-ssh-keys.sh.tmpl](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_before_00-generate-ssh-keys.sh.tmpl) - it generates default ssh keys
-- [run_onchange_before_01-install-packages.sh.tmpl](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_before_01-install-packages.sh.tmpl) - install brew packages and tools
-- [run_onchange_after_01-configure-dock.sh](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_after_01-configure-dock.sh) - configure macos dock
-- [run_onchange_after_02-configure-oh-my-zsh.sh](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_after_02-configure-oh-my-zsh.sh) - install oh-my-zsh + powerlevel10k theme
-- [run_onchange_after_03-gh-auth.sh](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_after_03-gh-auth.sh) - invoke github login in you browser
-- [run_onchange_after_04-development_dir.sh](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_after_04-development_dir.sh) - create ~/Development directory
-- [run_onchange_after_05-company-portal.sh](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_after_05-company-portal.sh) - install Microsoft Company portal
-- [run_onchange_after_06-configure-vscode.sh.tmpl](template%2F.chezmoiscripts%2Fdarwin%2Frun_onchange_after_06-configure-vscode.sh.tmpl) - install VsCode extensions
-  - extensions are as a list in [.chezmoi.toml.tmpl](template%2F.chezmoi.toml.tmpl)
+- wip
