@@ -29,7 +29,7 @@ tasks:
     internal: true
     silent: true
     preconditions:
-      - test -f ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "nas"
+      - test -f ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh
     cmd: bash ~/.taskfile/scripts/tailscale_devices_to_ssh_config.sh "nas"
 
   rclone-config:
