@@ -19,8 +19,3 @@ if ! [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
 else
   echo "Skipping zsh-syntax-highlighting plugin, already installed."
 fi
-
-
-
-
-
